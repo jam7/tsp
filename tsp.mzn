@@ -15,7 +15,7 @@ constraint forall (j in NUM) (
 function int: next(int: a) = (if a = Nodes then 1 else a + 1 endif);
 
 % Minimize cost
-var int: cost = sum(a, i, j in NUM)(
+var int: cost = sum(a, i, j in NUM where i != j)(
     Dist[i,j] * x[a, i] * x[next(a), j]
 );
 solve minimize cost;
