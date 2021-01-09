@@ -1,7 +1,9 @@
 DATA = eil10.dzn eil11.dzn eil12.dzn eil13.dzn eil14.dzn eil16.dzn eil20.dzn eil30.dzn eil40.dzn eil51.dzn
 VPATH = data
 
-TARGETS = gecode ortools chuffed coin-bc scip
+# Remove coin-bc since it won't work well.
+# TARGETS = gecode ortools chuffed coin-bc scip
+TARGETS = gecode ortools chuffed scip
 
 .SUFFIXES: .dzn .tsp
 
@@ -16,6 +18,9 @@ RUNIT: $(DATUM)
 	    echo minizinc --solver $$i $(PROG) $(DATUM); \
 	    timeout 1800 time minizinc --solver $$i $(PROG) $(DATUM); \
 	done
+
+RUN10:
+	make PROG=tsp.mzn DATUM=eil10.dzn RUNIT
 
 RUN12:
 	make PROG=tspmip.mzn DATUM=eil12.dzn RUNIT
