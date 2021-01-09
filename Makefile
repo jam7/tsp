@@ -1,6 +1,8 @@
 DATA = eil10.dzn eil11.dzn eil12.dzn eil13.dzn eil14.dzn eil16.dzn eil20.dzn eil30.dzn eil40.dzn eil51.dzn
 VPATH = data
 
+PROG ?= tsp.mzn
+
 # Remove coin-bc since it won't work well.
 # TARGETS = gecode ortools chuffed coin-bc scip
 TARGETS = gecode ortools chuffed scip
@@ -20,10 +22,10 @@ RUNIT: $(DATUM)
 	done
 
 RUN10:
-	make PROG=tsp.mzn DATUM=eil10.dzn RUNIT
+	make PROG=$(PROG) DATUM=eil10.dzn RUNIT
 
 RUN12:
-	make PROG=tspmip.mzn DATUM=eil12.dzn RUNIT
+	make PROG=$(PROG) DATUM=eil12.dzn RUNIT
 
 RUN14:
-	make PROG=tspmip.mzn DATUM=eil14.dzn RUNIT
+	make PROG=$(PROG) DATUM=eil14.dzn RUNIT
