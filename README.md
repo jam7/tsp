@@ -37,15 +37,24 @@ Minimum cost:
 
 ## Program
 
-tspmip.mzn: simple CSP using visit[i].
+I prepared several CSP TSP programs.
 
-|solver|eil14 time (s)|
-|---|---|
-|Win Gecode 6.3.0|1456|
-|Win Chuffed 0.10.4|106|
-|Win COIN-BC 2.10.5/1.17.5|-|
-|Linux Gecode 6.2.0|795.97|
-|Linux OR Tools 8.1|75.285|
-|Linux Chuffed 0.10.4|277.480|
-|Linux COIN-OR CBC 2.10.0|-|
-|Linux SCIP 6.0.2.0|106.077|
+- tspmip.mzn: simple CSP using visit[i]. 
+- tsp.mzn: simple binary CSP using x[i,j] similar to visit[i].
+- tsp2.mzn: similar to tsp.mzn but using (x[next(a),j]+x[prev(a),j])/2.
+- tspff.mzn: CSP using edge and flow formulation (increasing).
+- tspff2.mzn: CSP using edge and flow formulation (decreasing).
+- tspff2l.mzn: CSP using edge and flow formulation (decreasing and add more limitation).
+
+I ran above programs using eil14.
+
+|solver|tspmip (s)|tsp (s)|tsp2 (s)|tspff (s)|tspff2 (s)|tspff2l (s)|
+|---|---|---|---|---|---|---|
+|Win Gecode 6.3.0|1456|-|-|
+|Win Chuffed 0.10.4|106|-|-|
+|Win COIN-BC 2.10.5/1.17.5| >30min|-|-|
+|Linux Gecode 6.2.0|795.97|-|-|106.13|110.95|119.07|
+|Linux OR Tools 8.1|75.285|-|-|0.47|0.86|0.80|
+|Linux Chuffed 0.10.4|277.480|-|-|751.83|548.14|482.43|
+|Linux COIN-OR CBC 2.10.0| >30min|-|-|0.12|0.16|0.10|
+|Linux SCIP 6.0.2.0|106.077|-|-|0.12|0.20|0.14|
