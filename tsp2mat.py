@@ -1,25 +1,29 @@
 #!/usr/bin/env python
 
-from optparse import OptionParser
+import sys
+import argparse
 
-parser = OptionParser()
-parser.add_option("-o", "--output", dest="filename",
-                  help="write result to FILE", metavar="FILE")
-
-(options, args) = parser.parse_args()
-if len(args) != 1:
-    parser.error("incorrect number of arguments")
+parser = argparse.ArgumentParser()
+parser.add_argument("inputs", metavar='INPUTS', type=str,
+                    nargs=1, help="input files using TSPLIB95 format")
+parser.add_argument("-o", "--output", dest="filename",
+                    help="write result to FILE", metavar="FILE")
+args = parser.parse_args()
 
 import tsplib95
-problem = tsplib95.load(args[0])
+problem = tsplib95.load(args.inputs[0])
 
 if problem.type != 'TSP':
     raise Exception("Found not supported type: " + str(problem.type))
 
 if problem.edge_weight_type != 'EUC_2D':
-    raise Exception("Found not supported edge_weight_type: " + str(problem.edge_weight_type))
+    raise Exception("Found not supported edge_weight_type: "
+                    + str(problem.edge_weight_type))
 
 nodes = list(problem.get_nodes())
+
+if args.filename is not None:
+  sys.stdout = open(args.filename, 'w')
 
 print('Nodes = {};'.format(len(nodes)))
 
